@@ -5,10 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Webcraft</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<meta name="description" content="Webcraft - Anime, Filmlar va O‘yinlar platformasi">
-<meta name="keywords" content="anime, film, o‘yin, Webcraft, animelar, filmlar, games">
-<meta name="author" content="Webcraft">
-
 <style>
   * { margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif; }
   html { scroll-behavior: smooth; }
@@ -28,12 +24,16 @@
   /* HERO */
   .hero { height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative; padding:0 20px; overflow:hidden; }
   .hero::after { content:""; position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4); z-index:-1; }
-  .hero h1 { font-size:48px; margin-bottom:20px; text-shadow:0 0 10px #000; animation:fadeUp 1s ease forwards; opacity:0; }
-  .hero p { font-size:20px; margin-bottom:30px; text-shadow:0 0 5px #000; animation:fadeUp 1.2s ease forwards; opacity:0; }
+  .hero h1 { font-size:48px; margin-bottom:20px; text-shadow:0 0 10px #000; opacity:0; transform:translateY(20px); animation:fadeUp 1s forwards; }
+  .hero p { font-size:20px; margin-bottom:30px; text-shadow:0 0 5px #000; opacity:0; transform:translateY(20px); animation:fadeUp 1.2s forwards; }
   .btn { display:inline-block; padding:12px 30px; background:#00bcd4; color:#fff; font-size:18px; font-weight:bold; border-radius:25px; text-decoration:none; transition:0.3s; }
   .btn:hover { background:#0097a7; transform:scale(1.05); }
 
-  @keyframes fadeUp { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+  @keyframes fadeUp { to {opacity:1; transform:translateY(0);} }
+
+  /* PARTICLES */
+  .particle { position:absolute; border-radius:50%; opacity:0.6; animation:float 10s linear infinite; }
+  @keyframes float { 0%{transform:translateY(100vh) rotate(0deg); opacity:0;} 50%{opacity:0.8;} 100%{transform:translateY(-10vh) rotate(360deg); opacity:0;} }
 
   /* ABOUT */
   .about { background: rgba(0,0,0,0.6); padding:80px 20px; text-align:center; }
@@ -44,22 +44,21 @@
   .content { background: rgba(0,0,0,0.7); padding:80px 20px; text-align:center; }
   .content h2 { font-size:32px; margin-bottom:40px; }
   .cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap:30px; max-width:1100px; margin:auto; }
-  .card { background: rgba(255,255,255,0.05); border-radius:15px; overflow:hidden; box-shadow:0 4px 15px rgba(0,0,0,0.5); transition: transform 0.3s, box-shadow 0.3s; }
-  .card:hover { transform: translateY(-10px) scale(1.05); box-shadow:0 8px 25px rgba(0,0,0,0.7); }
+  .card { background: rgba(255,255,255,0.05); border-radius:15px; overflow:hidden; box-shadow:0 4px 15px rgba(0,0,0,0.5); transition: transform 0.3s, box-shadow 0.3s, background 0.3s; }
+  .card:hover { transform: translateY(-10px) scale(1.05); box-shadow:0 8px 25px rgba(0,0,0,0.7); background: rgba(0,188,212,0.1); }
   .card img { width:100%; height:200px; object-fit:cover; }
   .card h3 { margin:15px 0 10px; font-size:20px; color:#00bcd4; }
   .card p { font-size:16px; padding:0 15px 20px; color:#ddd; }
 
   /* REGISTRATION FORM */
-  .register { background: rgba(0,0,0,0.7); padding:80px 20px; text-align:center; }
+  .register { background: rgba(0,0,0,0.7); padding:80px 20px; text-align:center; position:relative; }
   .register h2 { font-size:32px; margin-bottom:20px; }
   .register form { max-width:400px; margin:auto; display:flex; flex-direction:column; gap:15px; }
   .register input { padding:12px 15px; border-radius:25px; border:none; outline:none; font-size:16px; }
   .register button { padding:12px 15px; border-radius:25px; border:none; background:#00bcd4; color:#fff; font-size:18px; font-weight:bold; cursor:pointer; transition:0.3s; }
   .register button:hover { background:#0097a7; transform:scale(1.05); }
-  .social-links { margin-top:15px; font-size:16px; }
-  .social-links a { color:#00bcd4; text-decoration:none; margin:0 5px; }
-  .social-links a:hover { text-decoration:underline; }
+  .popup { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) scale(0); background:#00bcd4; color:#fff; padding:20px 30px; border-radius:20px; transition:0.3s; z-index:1000; font-size:18px; }
+  .popup.show { transform:translate(-50%,-50%) scale(1); }
 
   /* CONTACT */
   .contact { background: rgba(0,0,0,0.8); padding:80px 20px; text-align:center; }
@@ -74,13 +73,13 @@
   .footer .socials a { color:#00bcd4; text-decoration:none; margin:0 5px; }
   .footer .socials a:hover { text-decoration:underline; }
 
-  @media (max-width:768px) {
-    .nav-links { position:absolute; top:70px; right:-100%; width:200px; height:100vh; background: rgba(0,0,0,0.9); flex-direction:column; align-items:center; justify-content:flex-start; padding-top:30px; gap:20px; transition:right 0.3s ease-in-out; }
-    .nav-links.active { right:0; }
-    .hamburger { display:block; }
-    .hero h1 { font-size:32px; }
-    .hero p { font-size:16px; }
-    .register form { width:90%; }
+  @media (max-width:768px){
+    .nav-links{position:absolute;top:70px;right:-100%;width:200px;height:100vh;background: rgba(0,0,0,0.9);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:30px;gap:20px;transition:right 0.3s;}
+    .nav-links.active{right:0;}
+    .hamburger{display:block;}
+    .hero h1{font-size:32px;}
+    .hero p{font-size:16px;}
+    .register form{width:90%;}
   }
 </style>
 </head>
@@ -125,7 +124,7 @@
     <input type="email" id="email" placeholder="Email" required>
     <button type="submit">Ro‘yxatdan o‘tish</button>
   </form>
-  <p id="formMsg" style="margin-top:10px;color:#00bcd4;"></p>
+  <div class="popup" id="popupMsg"></div>
   <div class="social-links">
     Bizni kuzating: 
     <a href="https://instagram.com/webcraft.7" target="_blank">Instagram</a> | 
@@ -163,19 +162,35 @@
   });
   window.addEventListener('scroll',()=>{window.scrollY>50?menu.classList.add('scrolled'):menu.classList.remove('scrolled');});
 
-  // Registration form -> Telegram kanalga yo'naltirish
+  // Floating particles
+  const hero = document.querySelector('.hero');
+  const colors = ['#00bcd4','#ff4081','#ffeb3b','#4caf50','#ff5722','#9c27b0','#03a9f4'];
+  for(let i=0;i<50;i++){
+    const p = document.createElement('div');
+    p.classList.add('particle');
+    const size=Math.random()*12+4;
+    p.style.width=p.style.height=size+'px';
+    p.style.left=Math.random()*100+'vw';
+    p.style.top=Math.random()*100+'vh';
+    p.style.background=colors[Math.floor(Math.random()*colors.length)];
+    p.style.animationDuration=(Math.random()*15+5)+'s';
+    hero.appendChild(p);
+  }
+
+  // Registration -> Popup + Telegram link
   const form = document.getElementById('regForm');
-  const formMsg = document.getElementById('formMsg');
+  const popup = document.getElementById('popupMsg');
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
     const name = document.getElementById('name').value;
+    popup.textContent = `Rahmat, ${name}! Endi Telegram kanalga yo‘naltirilasiz.`;
+    popup.classList.add('show');
 
-    formMsg.textContent = `Rahmat, ${name}! Endi bizning Telegram kanalga qo‘shiling.`;
-
-    setTimeout(() => {
-      window.open('https://t.me/webcraft_xl', '_blank'); // kanal linkingiz
-    }, 1500);
+    setTimeout(()=>{
+      popup.classList.remove('show');
+      window.open('https://t.me/webcraft_xl','_blank');
+    },2000);
 
     form.reset();
   });
@@ -183,3 +198,4 @@
 
 </body>
 </html>
+
