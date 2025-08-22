@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webcraft</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+  <!-- SEO uchun meta -->
+  <meta name="description" content="Webcraft - Anime, Filmlar va O‘yinlar platformasi">
+  <meta name="keywords" content="anime, film, o‘yin, Webcraft, animelar, filmlar, games">
+  <meta name="author" content="Webcraft">
+</head>
+<body>
+  <!-- === NAVBAR === -->
+  <div class="menu">
+    <div class="logo">Webcraft</div>
+    <ul class="nav-links">
+      <li><a href="#hero">Bosh sahifa</a></li>
+      <li><a href="#about">Biz haqimizda</a></li>
+      <li><a href="#content">To‘plam</a></li>
+      <li><a href="#contact">Kontakt</a></li>
+    </ul>
+    <div class="hamburger">☰</div>
+  </div>
+
+  <!-- === HERO === -->
+  <section id="hero" class="hero">
+    <h1>Anime Dunyoingizga Xush Kelibsiz 🌸</h1>
+    <p>Sevimli animelaringizni biz bilan kashf eting</p>
+    <a href="#about" class="btn">Boshlash</a>
+  </section>
+
+  <!-- === ABOUT === -->
+  <section id="about" class="about">
+    <h2>Biz haqimizda</h2>
+    <p>
+      Webcraft – bu animelar, filmlar va o‘yinlar uchun yaratilgan maxsus platforma. 
+      Biz sizga eng yaxshi kontentni taqdim etamiz va hamjamiyat bilan bog‘lanishingizga yordam beramiz.
+    </p>
+  </section>
+
+  <!-- === CONTENT === -->
+  <section id="content" class="content">
+    <h2>Bizning to‘plam</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="anime1.jpg" alt="Anime 1">
+        <h3>One Piece</h3>
+        <p>Sarguzasht va do‘stlik haqidagi mashhur anime.</p>
+      </div>
+      <div class="card">
+        <img src="film1.jpg" alt="Film 1">
+        <h3>The Wolf of Wall Street</h3>
+        <p>Leonardo DiCaprio o‘ynagan mashhur kino.</p>
+      </div>
+      <div class="card">
+        <img src="game1.jpg" alt="Game 1">
+        <h3>Counter Strike 2</h3>
+        <p>O‘yinchi vs o‘yinchi jangari shooter o‘yini.</p>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- === CONTACT === -->
+  <section id="contact" class="contact">
+    <h2>Kontakt</h2>
+    <p>Biz bilan bog‘lanish uchun quyidagi manzillardan foydalaning:</p>
+    <ul>
+      <li><i class="fab fa-instagram"></i> 
+        <a href="https://instagram.com/webcraft.7" target="_blank">@webcraft.7</a>
+      </li>
+      <li><i class="fab fa-telegram"></i> 
+        <a href="https://t.me/webcraft_xl" target="_blank">@webcraft_xl</a>
+      </li>
+    </ul>
+  </section>
+  
+  
+  <!-- === FOOTER === -->
+  <footer class="footer">
+    <p>© 2025 Webcraft. Barcha huquqlar himoyalangan.</p>
+    <div class="socials">
+      <a href="#">Facebook</a> | 
+      <a href="https://instagram.com/webcraft.7">Instagram</a> | 
+      <a href="#">Telegram</a>
+    </div>
+  </footer>
+
+  <!-- === SCRIPT === -->
+  <script>
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
+
+    hamburger.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+        navLinks.classList.remove("active");
+      });
+    });
+  </script>
+</body>
+</html>
