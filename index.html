@@ -6,7 +6,6 @@
 <title>Webcraft</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-  /* RESET & BASIC */
   * { margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif; }
   html { scroll-behavior: smooth; }
   body { background: url('anime.jpg') no-repeat center center fixed; background-size: cover; color: #fff; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
@@ -77,19 +76,19 @@
   .footer .socials a { color:#00bcd4; text-decoration:none; margin:0 5px; transition: color 0.3s; }
   .footer .socials a:hover { text-decoration:underline; }
 
-  /* DARK MODE STYLES */
+  /* DARK MODE */
   body.dark-mode {
-    background: #121212;
+    background: url('https://gaming-cdn.com/images/products/9459/orig/counter-strike-2-pc-mac-game-steam-cover.jpg?v=1742208833') no-repeat center center fixed;
+    background-size: cover;
     color: #fff;
   }
-  body.dark-mode .menu { background: rgba(20,20,20,0.9); }
   body.dark-mode .about,
   body.dark-mode .content,
   body.dark-mode .register,
-  body.dark-mode .contact { background: rgba(30,30,30,0.9); }
-  body.dark-mode .card { background: rgba(255,255,255,0.05); }
+  body.dark-mode .contact {
+    background: rgba(0,0,0,0.6); /* overlay rasm ustida */
+  }
   body.dark-mode .card h3 { color:#ff4081; }
-  body.dark-mode .card p { color:#ddd; }
   body.dark-mode .btn,
   body.dark-mode .register button,
   body.dark-mode .dark-toggle { background:#ff4081; color:#fff; }
@@ -112,7 +111,6 @@
 </head>
 <body>
 
-<!-- NAVBAR -->
 <div class="menu">
   <div class="logo">Webcraft</div>
   <ul class="nav-links">
@@ -125,23 +123,19 @@
   <div class="hamburger">☰</div>
 </div>
 
-<!-- DARK MODE TOGGLE -->
 <div class="dark-toggle">Dark Mode</div>
 
-<!-- HERO SECTION -->
 <section id="hero" class="hero">
   <h1>Anime Dunyoingizga Xush Kelibsiz 🌸</h1>
   <p>Sevimli animelaringizni biz bilan kashf eting</p>
   <a href="#about" class="btn">Boshlash</a>
 </section>
 
-<!-- ABOUT SECTION -->
 <section id="about" class="about">
   <h2>Biz haqimizda</h2>
   <p>Webcraft – bu animelar, filmlar va o‘yinlar uchun yaratilgan maxsus platforma. Biz sizga eng yaxshi kontentni taqdim etamiz va hamjamiyat bilan bog‘lanishingizga yordam beramiz.</p>
 </section>
 
-<!-- CONTENT SECTION -->
 <section id="content" class="content">
   <h2>Bizning to‘plam</h2>
   <div class="cards">
@@ -151,7 +145,6 @@
   </div>
 </section>
 
-<!-- REGISTRATION FORM -->
 <section id="register" class="register">
   <h2>Ro‘yxatdan o‘tish</h2>
   <form id="regForm">
@@ -167,7 +160,6 @@
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact" class="contact">
   <h2>Kontakt</h2>
   <ul>
@@ -176,7 +168,6 @@
   </ul>
 </section>
 
-<!-- FOOTER -->
 <footer class="footer">
   <p>© 2025 Webcraft. Barcha huquqlar himoyalangan.</p>
   <div class="socials">
@@ -185,10 +176,10 @@
 </footer>
 
 <script>
-  // HAMBURGER MENU
   const hamburger = document.querySelector(".hamburger");
   const navLinks = document.querySelector(".nav-links");
   const menu = document.querySelector(".menu");
+
   hamburger.addEventListener("click",()=>navLinks.classList.toggle("active"));
   document.querySelectorAll('.nav-links a').forEach(link=>{
     link.addEventListener('click',function(e){
@@ -198,10 +189,8 @@
     });
   });
 
-  // SCROLL EFFECT
   window.addEventListener('scroll',()=>{window.scrollY>50?menu.classList.add('scrolled'):menu.classList.remove('scrolled');});
 
-  // FLOATING PARTICLES
   const hero = document.querySelector('.hero');
   const colors = ['#00bcd4','#ff4081','#ffeb3b','#4caf50','#ff5722','#9c27b0','#03a9f4'];
   for(let i=0;i<50;i++){
@@ -216,7 +205,6 @@
     hero.appendChild(p);
   }
 
-  // REGISTRATION FORM POPUP + TELEGRAM REDIRECT
   const form = document.getElementById('regForm');
   const popup = document.getElementById('popupMsg');
   form.addEventListener('submit', function(e){
@@ -231,7 +219,6 @@
     form.reset();
   });
 
-  // DARK MODE TOGGLE
   const darkToggle = document.querySelector('.dark-toggle');
   darkToggle.addEventListener('click',()=>{
     document.body.classList.toggle('dark-mode');
@@ -244,4 +231,3 @@
 </script>
 </body>
 </html>
-
